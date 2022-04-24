@@ -128,12 +128,9 @@ public class AtmHelperApplication {
 
                       if(c.getCard().getCardPin() == pin){
                           theClient =c;
-                      }else {
-                          System.out.println("INCORRECT PIN ENTERED");
+                          break;
                       }
                   }
-            }else {
-                System.out.println("ENTERED CARD NUMBER DOES NOT EXIST");
             }
         }
 
@@ -151,8 +148,7 @@ public class AtmHelperApplication {
 
             if(theclient.getCard().getCardNumber()==cardn){
                 client =theclient;
-            }else{
-                System.out.println("THE GIVEN CARD NUMBER DOES NOT EXIST");
+                break;
             }
 
         }
@@ -162,14 +158,14 @@ public class AtmHelperApplication {
 
 
     //perform account Deposit
-    public void performAccountDeposit(long cardn,int pin,long  accountNumber,double amount){
+    public void performAccountDeposit(Client client,long  accountNumber,double amount){
 
-        Account acc = login(cardn,pin).getAnAccount(accountNumber) ;
+        Account acc = client.getAnAccount(accountNumber) ;
 
         if(acc!=null){
         double balance = acc.getAvaliableBalance();
             acc.setAvaliableBalance(amount+balance);
-            acc.setHistory("/n" + "ATM MONEY IN : R"+amount + " ON " + LocalDate.now());
+            acc.setHistory("\n" + "ATM MONEY IN : R"+amount + " ON " + LocalDate.now());
             System.out.println("MONEY IN : R" +amount + " AND NEW AV B IS :R" + acc.getAvaliableBalance());
         }else {
 
@@ -179,9 +175,9 @@ public class AtmHelperApplication {
     }
 
     //perform account Withdrawal
-    public void performWithdrawal( long cardnum,int pin ,double amount){
+    public void performWithdrawal( Client client,double amount){
 
-        Client client = login(cardnum,pin);
+
 
         double avb= client.getCard().getAccount().getAvaliableBalance();
 
@@ -190,7 +186,7 @@ public class AtmHelperApplication {
             client.getCard().getAccount().setAvaliableBalance(avb - amount);
             avb= client.getCard().getAccount().getAvaliableBalance();
 
-            client.getCard().getAccount().setHistory("/n" + " MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb);
+            client.getCard().getAccount().setHistory("\n" + " MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb);
 
             System.out.println(client.getCard().getAccount().getHistory());
         }else {
@@ -201,6 +197,33 @@ public class AtmHelperApplication {
 
     }
 
+    //perform monery transfer
+    public void doMoneyTransfer(Client client, long toAccount, long fromAccount , double amount){
 
+        double bal1= client.getAnAccount(fromAccount).getAvaliableBalance();
+        double bal2 = client.getAnAccount(toAccount).getAvaliableBalance();
+        if(amount <= bal1){
+
+            client.getAnAccount(fromAccount).setAvaliableBalance(bal1-amount);
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount );
+            bal2 += amount;
+            client.getAnAccount(toAccount).setAvaliableBalance(bal2);
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 );
+
+        }
+
+    }
+
+    //get statement
+    public String  getAccountStatement(Client client, long accountNum ){
+
+        return client.getAnAccount(accountNum).getHistory();
+    }
+
+   //get account Balance
+    public double getAccountBalances(Client client, long accountNumber){
+
+        return client.getAnAccount(accountNumber).getAvaliableBalance();
+    }
 
 }
