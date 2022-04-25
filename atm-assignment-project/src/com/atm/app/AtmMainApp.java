@@ -1,6 +1,7 @@
 package com.atm.app;
 
 import com.atm.application.AtmHelperApplication;
+import com.atm.entity.Account;
 import com.atm.entity.Card;
 import com.atm.entity.Client;
 import java.util.Scanner;
@@ -8,6 +9,11 @@ import java.util.Scanner;
 
 
 public class AtmMainApp {
+
+
+
+        static Scanner in = new Scanner(System.in);
+
 
     public static void main(String [] args){
 
@@ -17,7 +23,7 @@ public class AtmMainApp {
         System.out.println("PLEASE NOTE!!! IF YOU ENTER WRONG PIN 3 TIMES YOUR SESSION WILL BE ENDED");
 
 
-        Scanner in = new Scanner(System.in);
+
 
         Client client =null;
 
@@ -73,18 +79,35 @@ public class AtmMainApp {
         if(client!=null) {
             int actiom;
 
-
-            System.out.println("THESE ARE ACTIONS YOU CAN PERFORM IN OUR ATM : " + "\n"
-                    + " TO WITHDRAW PRESS 1 " + "\n"
-                    + " TO DEPOSIT TO ANY OF YOUR LINKED ACCOUNT PRESS 2: " + "\n"
-                    + " TO CHECK ANY OF YOU ACCOUNT BALANCE PRESS 3: " + "\n"
-                    + " TO GET ANY ACCOUNT STATEMENT PRESS 4 :" + "\n"
-                    + " TO CHANGE YOUR ACCOUNT PIN PRESS 5:" + "\n"
-                    + " TO EXIT ENTER ZERO");
+       displayMenu();
 
             System.out.println("ENTER  your selected Action");
+
             actiom = in.nextInt();
-            logedInMenu(client, actiom);
+
+             do {
+                 selectAndPerformAction(client,atm,actiom);
+
+
+                 System.out.println("====================================================");
+                 System.out.println("THESE ARE ACTIONS YOU CAN PERFORM IN MY ATM : " + "\n"
+                         + " TO WITHDRAW PRESS 1 " + "\n"
+                         + " TO DEPOSIT TO ANY OF YOUR LINKED ACCOUNT ENTER 2: " + "\n"
+                         + " TO CHECK ANY OF YOU ACCOUNT BALANCE ENTER 3: " + "\n"
+                         + " TO GET ANY ACCOUNT STATEMENT ENTER 4 :" + "\n"
+                         + " TO CHANGE YOUR ACCOUNT PIN ENTER 5:" + "\n"
+                         + " TO PERFORM INTER ACCOUNT TRANSFER ENTER 6" + "\n"
+                         + " TO EXIT ENTER ZERO");
+                 System.out.println("====================================================");
+
+                 System.out.println("PLEASE ENTER YOUR NEXT OPTION NB:! SELECT OPTION ZERO TO EXIT THE ATM");
+                 actiom =in.nextInt();
+
+             }
+            while (actiom!=0);
+
+
+
         }
 
 
@@ -92,7 +115,7 @@ public class AtmMainApp {
 
 
     //display full menu
-    public static void logedInMenu(Client client ,int action){
+    public static void selectAndPerformAction(Client client ,AtmHelperApplication atm,int action){
 
         if (client!=null){
 
@@ -101,47 +124,139 @@ public class AtmMainApp {
             switch (action){
 
                 case 1:
-                    withdrawal();
+                    withdrawal(client, atm);
                     break;
                 case 2:
-                    deposit();
+                    deposit(client,atm);
                     break;
                 case 3:
-                    getbalance();
+                    getbalance(client,atm);
                     break;
                 case 4:
-                    getStatement();
+                    getStatement(client,atm);
                     break;
                 case 5:
-                    changePin();
+                    changePin(client,atm);
+                    break;
+                case 6:
+                    doInterAccountTransfer(client,atm);
                     break;
                 case 0:
-                    doExit();
+                    System.out.println("===========================THANK YOU FOR USING MY ATM PLEASE  DO CALL AGAIN=================");
                     break;
+
                 default: System.out.println("You Have Entered an Incorrect Option");
+                break;
             }
         }
     }
 
-    private static void doExit() {
+    private static void doInterAccountTransfer(Client client, AtmHelperApplication atm) {
+
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO TRANSFER FROM");
+        long toAccountNum;
+        long fromAccountNum;
+        for (Account account: client.getAccount() ) {
+
+            System.out.println(account.getAccountNumber());
+        }
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN ABOVE ACCOUNTS FOR WHICH YOU WISH TO TRANSFER FROM");
+        fromAccountNum =in.nextLong();
+
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN ABOVE ACCOUNTS FOR WHICH YOU WISH TO TRANSFER TO");
+        toAccountNum =in.nextLong();
+
+        System.out.println("ENTER THE AMOUNT YOU WISH TO TRANSFER");
+        double amount;
+
+        amount=in.nextDouble();
+
+        atm.doMoneyTransfer(client,toAccountNum,fromAccountNum,amount);
+
     }
 
-    private static void changePin() {
+
+    private static void changePin(Client client , AtmHelperApplication atm) {
+
+        int newPin;
+        System.out.println("ENTER A NEW 4 DIGIT PIN : ");
+        newPin =in.nextInt();
+
+        atm.setCardPin(client,newPin);
+    }
+
+    private static void getStatement(Client client, AtmHelperApplication atm) {
+
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET THE STATEMENT");
+        long accountNum;
+        for (Account account: client.getAccount() ) {
+
+            System.out.println(account.getAccountNumber());
+        }
+
+        accountNum =in.nextLong();
+
+        System.out.println(atm.getAccountStatement(client,accountNum));
 
     }
 
-    private static void getStatement() {
+    private static void getbalance(Client client, AtmHelperApplication atm) {
+
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET YOUR DEPOSIT");
+        long accountNum;
+        for (Account account: client.getAccount() ) {
+
+            System.out.println(account.getAccountNumber());
+        }
+
+        accountNum =in.nextLong();
+
+        System.out.println("YOUR AVAILABLE AMOUNT FOR SELECTED ACCOUNT : " + accountNum + " IS: R" +atm.getAccountBalances(client,accountNum));
+    }
+
+    private static void deposit(Client client, AtmHelperApplication atm) {
+        double amount ;
+
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET THE STATEMENT");
+        long accountNum;
+        for (Account account: client.getAccount() ) {
+
+            System.out.println(account.getAccountNumber());
+        }
+
+        accountNum= in.nextLong();
+
+        System.out.println("ENTER THE AMOUNT YOU WISH TO DEPOSIT");
+        amount =in.nextDouble();
+
+
+        atm.performAccountDeposit(client,accountNum,amount);
 
     }
 
-    private static void getbalance() {
+    private static void withdrawal(Client client, AtmHelperApplication atm) {
+
+        double amount;
+
+        System.out.println("ENTER YOUR WITHDRAWAL AMOUNT : " );
+        amount =in.nextDouble();
+
+        atm.performWithdrawal(client,amount);
+
 
     }
 
-    private static void deposit() {
-
-    }
-
-    private static void withdrawal() {
+    //display main menu
+    public static void displayMenu(){
+        System.out.println("====================================================");
+        System.out.println("THESE ARE ACTIONS YOU CAN PERFORM IN MY ATM : " + "\n"
+                + " TO WITHDRAW PRESS 1 " + "\n"
+                + " TO DEPOSIT TO ANY OF YOUR LINKED ACCOUNT ENTER 2: " + "\n"
+                + " TO CHECK ANY OF YOU ACCOUNT BALANCE ENTER 3: " + "\n"
+                + " TO GET ANY ACCOUNT STATEMENT ENTER 4 :" + "\n"
+                + " TO CHANGE YOUR ACCOUNT PIN ENTER 5:" + "\n"
+                + " TO PERFORM INTER ACCOUNT TRANSFER ENTER 6" + "\n"
+                + " TO EXIT ENTER ZERO");
+        System.out.println("====================================================");
     }
 }

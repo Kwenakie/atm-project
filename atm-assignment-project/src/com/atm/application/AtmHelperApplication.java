@@ -89,29 +89,7 @@ public class AtmHelperApplication {
 
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Client> clinets) {
-        this.clients = clinets;
-    }
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
 
     //need reword
     public Client login(long cardNumber , int pin){
@@ -226,4 +204,53 @@ public class AtmHelperApplication {
         return client.getAnAccount(accountNumber).getAvaliableBalance();
     }
 
+    //change pin given the new pin
+    public void setCardPin(Client client, int newPin){
+
+        client.getCard().setCardPin(newPin);
+        System.out.println("YOUR CARD PIN HAS BEEN SUCCESSFULLY CHANGED");
+        client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "\n");
+
+    }
+
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public List<Account> getAccounts1() {
+        return accounts1;
+    }
+
+    public void setAccounts1(List<Account> accounts1) {
+        this.accounts1 = accounts1;
+    }
+
+    public List<Account> getAccounts2() {
+        return accounts2;
+    }
+
+    public void setAccounts2(List<Account> accounts2) {
+        this.accounts2 = accounts2;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 }
