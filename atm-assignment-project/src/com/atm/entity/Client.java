@@ -2,47 +2,19 @@ package com.atm.entity;
 
 import java.util.*;
 
-public class Client {
+public class Client extends Person{
 
-    private String firstName;
-    private String lastName;
-    private long clientID;
+
     private List<Account> account = new ArrayList<>();
     private Card card;
 
     public Client() {
     }
 
-    public Client(String firstName, String lastName, long clientID, List<Account> account, Card card) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.clientID = clientID;
+    public Client(long id, String name, String surname, String gender, String race, String address, List<Account> account, Card card) {
+        super(id, name, surname, gender, race, address);
         this.account = account;
         this.card = card;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public long getClientID() {
-        return clientID;
-    }
-
-    public void setClientID(long clientID) {
-        this.clientID = clientID;
     }
 
     public List<Account> getAccount() {
@@ -73,16 +45,4 @@ public class Client {
         return acc;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", clientID=" + clientID +
-                ", account=" + account +
-                ", card=" + card +
-                '}';
-    }
 }

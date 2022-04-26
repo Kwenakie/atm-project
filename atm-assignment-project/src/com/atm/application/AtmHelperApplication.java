@@ -77,9 +77,9 @@ public class AtmHelperApplication {
         cards.add(c2);
         cards.add(c3);
 
-        Client cl1 = new Client("Kwena" , "Mbayeka" , 1212,accounts, c1);
-        Client cl2 = new Client("Khumo" , "Mbayeka" , 1213,accounts1, c2);
-        Client cl3 = new Client("Mntungwa" , "Nkosi" , 1214,accounts2, c3);
+        Client cl1 = new Client(1212,"Kwena" , "Mbayeka" ,"female","African","23 sonneblom",accounts, c1);
+        Client cl2 = new Client(1213,"Khumo" , "Mbayeka" , "male","African","510 sosha",accounts1, c2);
+        Client cl3 = new Client(1214,"Mntungwa" , "Nkosi" , "male","Indian","23 sonneblom",accounts2, c3);
 
 
 
