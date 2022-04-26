@@ -68,8 +68,6 @@ public class Client {
         for (Account accnts: account) {
             if(accnts.getAccountNumber()==accNumber){
                 acc =accnts;
-            }else{
-                System.out.println("ACCOUNT NOT ON CLIENT lIST");
             }
         }
         return acc;

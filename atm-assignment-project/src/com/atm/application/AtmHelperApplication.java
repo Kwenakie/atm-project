@@ -164,7 +164,7 @@ public class AtmHelperApplication {
             client.getCard().getAccount().setAvaliableBalance(avb - amount);
             avb= client.getCard().getAccount().getAvaliableBalance();
 
-            client.getCard().getAccount().setHistory("\n" + " MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb);
+            client.getCard().getAccount().setHistory(" MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb + " TIME :" + LocalDate.now() +"\n");
 
             System.out.println(client.getCard().getAccount().getHistory());
         }else {
@@ -183,10 +183,13 @@ public class AtmHelperApplication {
         if(amount <= bal1){
 
             client.getAnAccount(fromAccount).setAvaliableBalance(bal1-amount);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount );
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount + "TIME :" + LocalDate.now());
             bal2 += amount;
             client.getAnAccount(toAccount).setAvaliableBalance(bal2);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 );
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 + " TIME " + LocalDate.now() );
+
+            System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + toAccount + " IS : " +  "R"+ client.getAnAccount(toAccount).getAvaliableBalance());
+            System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + fromAccount + " IS : " +  "R"+ client.getAnAccount(fromAccount).getAvaliableBalance());
 
         }
 
@@ -209,7 +212,7 @@ public class AtmHelperApplication {
 
         client.getCard().setCardPin(newPin);
         System.out.println("YOUR CARD PIN HAS BEEN SUCCESSFULLY CHANGED");
-        client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "\n");
+        client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "TIME: " + LocalDate.now() + "\n" );
 
     }
 
