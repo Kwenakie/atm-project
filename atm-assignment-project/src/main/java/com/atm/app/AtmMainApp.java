@@ -53,8 +53,9 @@ public class AtmMainApp {
 
         if (theCardNumber !=-1) {
 
-            while (pintrys > 0) {
+            while (pintrys >=1) {
 
+                pintrys -=1;
                 if(atm.login(theCardNumber,pin)==null){
 
 
@@ -69,7 +70,7 @@ public class AtmMainApp {
                     break;
                 }
 
-                pintrys-=1;
+
 
 
             }
@@ -81,7 +82,7 @@ public class AtmMainApp {
 
        displayMenu();
 
-            System.out.println("ENTER  your selected Action");
+            System.out.println("ENTER YOUR SELECTED ACTION");
 
             actiom = in.nextInt();
 
@@ -100,7 +101,7 @@ public class AtmMainApp {
                          + " TO EXIT ENTER ZERO");
                  System.out.println("====================================================");
 
-                 System.out.println("PLEASE ENTER YOUR NEXT OPTION NB:! SELECT OPTION ZERO TO EXIT THE ATM");
+                 System.out.println("PLEASE ENTER YOUR NEXT OPTION NB:!! SELECT OPTION ZERO TO EXIT THE ATM");
                  actiom =in.nextInt();
 
              }
@@ -202,7 +203,7 @@ public class AtmMainApp {
 
     private static void getbalance(Client client, AtmHelperApplication atm) {
 
-        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET YOUR DEPOSIT");
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET YOUR BALANCES");
         long accountNum;
         for (Account account: client.getAccount() ) {
 
@@ -217,7 +218,7 @@ public class AtmMainApp {
     private static void deposit(Client client, AtmHelperApplication atm) {
         double amount ;
 
-        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO GET THE STATEMENT");
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WISH TO DO THE DEPOSIT");
         long accountNum;
         for (Account account: client.getAccount() ) {
 

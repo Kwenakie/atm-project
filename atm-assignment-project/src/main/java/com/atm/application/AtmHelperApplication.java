@@ -5,6 +5,7 @@ import com.atm.entity.Card;
 import com.atm.entity.Client;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,14 +13,14 @@ import java.util.Locale;
 
 public class AtmHelperApplication {
 
-    private List<Account> accounts = new ArrayList<>();
+    private List<Account> accounts = new ArrayList();
 
-    private List<Account> accounts1 = new ArrayList<>();
+    private List<Account> accounts1 = new ArrayList();
 
-    private List<Account> accounts2 = new ArrayList<>();
-    private List<Client> clients = new ArrayList<>();
+    private List<Account> accounts2 = new ArrayList();
+    private List<Client> clients = new ArrayList();
 
-    private List<Card>cards = new ArrayList<>();
+    private List<Card>cards = new ArrayList();
 
 
 
@@ -96,39 +97,44 @@ public class AtmHelperApplication {
 
 
         Client theClient =null;
-
-        for (Card card:cards) {
-            if ( card.getCardNumber()==cardNumber){
-
+        try {
+        for (Card card : cards) {
+            if (card.getCardNumber() == cardNumber) {
                 Client c = getClientGivenCardNumber(cardNumber);
-
-                  if(c!=null ){
-
-                      if(c.getCard().getCardPin() == pin){
-                          theClient =c;
-                          break;
-                      }
-                  }
+                if (c != null) {
+                if (c.getCard().getCardPin() == pin) {
+                    theClient = c;
+                    break;
+                }
             }
         }
+    }
+        }catch (NullPointerException e){
+            System.out.println("LOGIN FAILED");
 
-
-
-        
+        }
         return theClient;
+
     }
 
     //get client given card number
-    public Client getClientGivenCardNumber(long cardn){
+    public Client getClientGivenCardNumber(long cardNumber){
         Client client= null;
+
+        try {
+
 
         for (Client theclient:clients) {
 
-            if(theclient.getCard().getCardNumber()==cardn){
+            if(theclient.getCard().getCardNumber()==cardNumber){
                 client =theclient;
                 break;
             }
 
+        }
+        }catch (NullPointerException e){
+
+            System.out.println("UNABLE TO FIND CLIENT WITH THE GIVEN CARD NUMBER");
         }
 
         return client;
@@ -143,11 +149,11 @@ public class AtmHelperApplication {
         if(acc!=null){
         double balance = acc.getAvaliableBalance();
             acc.setAvaliableBalance(amount+balance);
-            acc.setHistory("\n" + "ATM MONEY IN : R"+amount + " ON " + LocalDate.now());
-            System.out.println("MONEY IN : R" +amount + " AND NEW AV B IS :R" + acc.getAvaliableBalance());
+            acc.setHistory("ATM MONEY IN : R"+amount + " ON " + LocalDateTime.now() + "\n");
+            System.out.println("MONEY IN : R" +amount + " AND NEW AVAILABLE BALANCE IS :R" + acc.getAvaliableBalance());
         }else {
 
-            System.out.println("ACCOUNT DOESNT EXIST");
+            System.out.println("ACCOUNT DOESN'T EXIST");
         }
 
     }
@@ -164,7 +170,7 @@ public class AtmHelperApplication {
             client.getCard().getAccount().setAvaliableBalance(avb - amount);
             avb= client.getCard().getAccount().getAvaliableBalance();
 
-            client.getCard().getAccount().setHistory(" MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb + " TIME :" + LocalDate.now() +"\n");
+            client.getCard().getAccount().setHistory(" MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb + " TIME :" + LocalDateTime.now() +"\n");
 
             System.out.println(client.getCard().getAccount().getHistory());
         }else {
@@ -183,10 +189,10 @@ public class AtmHelperApplication {
         if(amount <= bal1){
 
             client.getAnAccount(fromAccount).setAvaliableBalance(bal1-amount);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount + "TIME :" + LocalDate.now());
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount + "TIME :" + LocalDateTime.now() +"\n");
             bal2 += amount;
             client.getAnAccount(toAccount).setAvaliableBalance(bal2);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 + " TIME " + LocalDate.now() );
+            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 + " TIME " + LocalDateTime.now() +"\n");
 
             System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + toAccount + " IS : " +  "R"+ client.getAnAccount(toAccount).getAvaliableBalance());
             System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + fromAccount + " IS : " +  "R"+ client.getAnAccount(fromAccount).getAvaliableBalance());
@@ -210,9 +216,15 @@ public class AtmHelperApplication {
     //change pin given the new pin
     public void setCardPin(Client client, int newPin){
 
-        client.getCard().setCardPin(newPin);
-        System.out.println("YOUR CARD PIN HAS BEEN SUCCESSFULLY CHANGED");
-        client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "TIME: " + LocalDate.now() + "\n" );
+
+        try {
+
+            client.getCard().setCardPin(newPin);
+            System.out.println("YOUR CARD PIN HAS BEEN SUCCESSFULLY CHANGED");
+            client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "TIME: " + LocalDateTime.now() +"\n");
+        } catch (NullPointerException e){
+            System.out.println("UNABLE TO GET ACCOUNT HISTORY");
+        }
 
     }
 

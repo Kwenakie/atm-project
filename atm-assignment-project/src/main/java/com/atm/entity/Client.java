@@ -5,7 +5,7 @@ import java.util.*;
 public class Client extends Person{
 
 
-    private List<Account> account = new ArrayList<>();
+    private List<Account> account = new ArrayList();
     private Card card;
 
     public Client() {
@@ -34,15 +34,23 @@ public class Client extends Person{
     }
 
     //given a list of account numbers and an account number search and return if found
-    public Account getAnAccount(long accNumber){
+    public Account getAnAccount(long accNumber) {
 
         Account acc = null;
-        for (Account accnts: account) {
-            if(accnts.getAccountNumber()==accNumber){
-                acc =accnts;
+        try {
+
+            for (Account accnts : account) {
+                if (accnts.getAccountNumber() == accNumber) {
+                    acc = accnts;
+                }
             }
+            return acc;
+
+        }catch (NullPointerException e){
+
+            System.out.println("ACCOUNT NOT FOUND ON CUSTOMER");
         }
+
         return acc;
     }
-
 }
