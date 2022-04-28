@@ -38,77 +38,79 @@ public class AtmMainApp {
         cardNumber = in.nextLong();
 
         String results = "ENTERED CARD NUMBER IS NOT CORRECT GET A CORRECT CARD NUMBER AND COME ENJOY KWENA ATM";
-        for (Card card: atm.getCards()) {
 
-            if (card.getCardNumber()==cardNumber){
-                theCardNumber =cardNumber;
-                results = "CARD NUMBER CORRECTLY ENTERED";
-                break;
-            }
-        }
+            for (Card card : atm.getCards()) {
 
-        System.out.println(results);
-        System.out.println("ENTER YOUR CARD PIN: ");
-        pin= in.nextInt();
-
-        if (theCardNumber !=-1) {
-
-            while (pintrys >=1) {
-
-                pintrys -=1;
-                if(atm.login(theCardNumber,pin)==null){
-
-
-                    System.out.println("WRONG PIN ENTERED AND YOUR REMAINING TRIES ARE " + pintrys);
-
-                    System.out.println("ENTER YOUR PIN AGAIN");
-                    pin =in.nextInt();
-                }else {
-
-                    client =atm.login(theCardNumber,pin);
-                    System.out.println("SUCCESSFULLY LOGGED IN");
+                if (card.getCardNumber() == cardNumber) {
+                    theCardNumber = cardNumber;
+                    results = "CARD NUMBER CORRECTLY ENTERED";
                     break;
                 }
+            }
+        if(!results.contains("ENTERED CARD NUMBER IS NOT CORRECT")){
+            System.out.println(results);
+            System.out.println("ENTER YOUR CARD PIN: ");
+            pin = in.nextInt();
+
+            if (theCardNumber != -1) {
+
+                while (pintrys >= 1) {
+
+                    pintrys -= 1;
+                    if (atm.login(theCardNumber, pin) == null) {
 
 
+                        System.out.println("WRONG PIN ENTERED AND YOUR REMAINING TRIES ARE " + pintrys);
 
+                        System.out.println("ENTER YOUR PIN AGAIN");
+                        pin = in.nextInt();
+                    } else {
+
+                        client = atm.login(theCardNumber, pin);
+                        System.out.println("SUCCESSFULLY LOGGED IN");
+                        break;
+                    }
+
+
+                }
 
             }
 
-        }
+            if (client != null) {
+                int actiom;
 
-        if(client!=null) {
-            int actiom;
+                displayMenu();
 
-       displayMenu();
+                System.out.println("ENTER YOUR SELECTED ACTION");
 
-            System.out.println("ENTER YOUR SELECTED ACTION");
+                actiom = in.nextInt();
 
-            actiom = in.nextInt();
-
-             do {
-                 selectAndPerformAction(client,atm,actiom);
+                do {
+                    selectAndPerformAction(client, atm, actiom);
 
 
-                 System.out.println("====================================================");
-                 System.out.println("THESE ARE ACTIONS YOU CAN PERFORM IN MY ATM : " + "\n"
-                         + " TO WITHDRAW PRESS 1 " + "\n"
-                         + " TO DEPOSIT TO ANY OF YOUR LINKED ACCOUNT ENTER 2: " + "\n"
-                         + " TO CHECK ANY OF YOU ACCOUNT BALANCE ENTER 3: " + "\n"
-                         + " TO GET ANY ACCOUNT STATEMENT ENTER 4 :" + "\n"
-                         + " TO CHANGE YOUR ACCOUNT PIN ENTER 5:" + "\n"
-                         + " TO PERFORM INTER ACCOUNT TRANSFER ENTER 6" + "\n"
-                         + " TO EXIT ENTER ZERO");
-                 System.out.println("====================================================");
+                    System.out.println("====================================================");
+                    System.out.println("THESE ARE ACTIONS YOU CAN PERFORM IN MY ATM : " + "\n"
+                            + " TO WITHDRAW PRESS 1 " + "\n"
+                            + " TO DEPOSIT TO ANY OF YOUR LINKED ACCOUNT ENTER 2: " + "\n"
+                            + " TO CHECK ANY OF YOU ACCOUNT BALANCE ENTER 3: " + "\n"
+                            + " TO GET ANY ACCOUNT STATEMENT ENTER 4 :" + "\n"
+                            + " TO CHANGE YOUR ACCOUNT PIN ENTER 5:" + "\n"
+                            + " TO PERFORM INTER ACCOUNT TRANSFER ENTER 6" + "\n"
+                            + " TO EXIT ENTER ZERO");
+                    System.out.println("====================================================");
 
-                 System.out.println("PLEASE ENTER YOUR NEXT OPTION NB:!! SELECT OPTION ZERO TO EXIT THE ATM");
-                 actiom =in.nextInt();
+                    System.out.println("PLEASE ENTER YOUR NEXT OPTION NB:!! SELECT OPTION ZERO TO EXIT THE ATM");
+                    actiom = in.nextInt();
 
-             }
-            while (actiom!=0);
+                }
+                while (actiom != 0);
 
 
+            }
+        }else {
 
+            System.out.println(results);
         }
 
 
