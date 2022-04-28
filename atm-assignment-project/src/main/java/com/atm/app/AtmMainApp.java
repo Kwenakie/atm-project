@@ -239,10 +239,21 @@ public class AtmMainApp {
 
         double amount;
 
+        System.out.println("ENTER AN ACCOUNT MATCHING YOUR SHOWN BELOW ACCOUNTS FOR WHICH YOU WANT TO WITHDRAW FROM");
+        long accountNum;
+        for (Account account: client.getAccount() ) {
+
+            System.out.println(account.getAccountNumber());
+        }
+
+        accountNum= in.nextLong();
+
+
+
         System.out.println("ENTER YOUR WITHDRAWAL AMOUNT : " );
         amount =in.nextDouble();
 
-        atm.performWithdrawal(client,amount);
+        atm.performWithdrawal(client,accountNum,amount);
 
 
     }

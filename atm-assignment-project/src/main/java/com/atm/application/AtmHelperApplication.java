@@ -22,17 +22,35 @@ public class AtmHelperApplication {
 
     private List<Card>cards = new ArrayList();
 
+    private StringBuilder acHistory = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory1 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory2 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory3= new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory4 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory5 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory6= new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory7 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory8 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory9 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory10 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory11 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory12 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory13 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+    private StringBuilder acHistory14 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+
+
+
 
 
     public AtmHelperApplication() {
-        Account ac = new Account(1234,2500.00,"NEW ACCOUNT");
-        Account ac1 = new  Account(1235,500.00,"NEW ACCOUNT");
-        Account ac2 = new  Account(1236,250.00,"NEW ACCOUNT");
+        Account ac = new Account(1234,2500.00,acHistory);
+        Account ac1 = new  Account(1235,500.00,acHistory1);
+        Account ac2 = new  Account(1236,250.00,acHistory2);
 
 
-        Account ac3 = new  Account(1237,25000.00,"NEW ACCOUNT");
-        Account ac4 = new  Account(1238,2500.60,"NEW ACCOUNT");
-        Account ac5 = new  Account(1239,250000.00,"NEW ACCOUNT");
+        Account ac3 = new  Account(1237,25000.00,acHistory3);
+        Account ac4 = new  Account(1238,2500.60,acHistory4);
+        Account ac5 = new  Account(1239,250000.00,acHistory5);
 
         accounts.add(ac1);
         accounts.add(ac2);
@@ -42,13 +60,13 @@ public class AtmHelperApplication {
 
         //client 2
 
-        Account ac6 = new  Account(1137,25000.00,"NEW ACCOUNT");
-        Account ac7 = new  Account(1138,2500.60,"NEW ACCOUNT");
-        Account ac8 = new  Account(1139,250000.00,"NEW ACCOUNT");
+        Account ac6 = new  Account(1137,25000.00,acHistory6);
+        Account ac7 = new  Account(1138,2500.60,acHistory7);
+        Account ac8 = new  Account(1139,250000.00,acHistory8);
 
-        Account ac9 = new  Account(1337,25000.00,"NEW ACCOUNT");
-        Account ac10 = new  Account(1338,2500.60,"NEW ACCOUNT");
-        Account ac11= new  Account(1339,250000.00,"NEW ACCOUNT");
+        Account ac9 = new  Account(1337,25000.00,acHistory9);
+        Account ac10 = new  Account(1338,2500.60,acHistory10);
+        Account ac11= new  Account(1339,250000.00,acHistory11);
 
         accounts1.add(ac6);
         accounts1.add(ac7);
@@ -59,9 +77,9 @@ public class AtmHelperApplication {
 
         //client 3
 
-        Account ac12 = new  Account(1437,25000.00,"NEW ACCOUNT");
-        Account ac13 = new  Account(1438,2500.60,"NEW ACCOUNT");
-        Account ac14 = new  Account(1439,250000.00,"NEW ACCOUNT");
+        Account ac12 = new  Account(1437,25000.00,acHistory12);
+        Account ac13 = new  Account(1438,2500.60,acHistory13);
+        Account ac14 = new  Account(1439,250000.00,acHistory14);
 
         accounts2.add(ac12);
         accounts2.add(ac13);
@@ -128,6 +146,7 @@ public class AtmHelperApplication {
 
             if(theclient.getCard().getCardNumber()==cardNumber){
                 client =theclient;
+                client.getCard().getAccount().setHistory(client.getCard().getAccount().getHistory().append("YOU LOGGED IN ON YOUR ATM : " + "TIME AND DATE : " + LocalDateTime.now() ));
                 break;
             }
 
@@ -149,8 +168,8 @@ public class AtmHelperApplication {
         if(acc!=null){
         double balance = acc.getAvaliableBalance();
             acc.setAvaliableBalance(amount+balance);
-            acc.setHistory("ATM MONEY IN : R"+amount + " ON " + LocalDateTime.now() + "\n");
-            System.out.println("MONEY IN : R" +amount + " AND NEW AVAILABLE BALANCE IS :R" + acc.getAvaliableBalance());
+            acc.setHistory(acc.getHistory().append("ATM MONEY IN : R"+amount + " ON " + LocalDateTime.now() + "\n"));
+            System.out.println("ATM MONEY IN: R" +amount + " AND NEW AVAILABLE BALANCE IS :R" + acc.getAvaliableBalance());
         }else {
 
             System.out.println("ACCOUNT DOESN'T EXIST");
@@ -159,20 +178,20 @@ public class AtmHelperApplication {
     }
 
     //perform account Withdrawal
-    public void performWithdrawal( Client client,double amount){
+    public void performWithdrawal( Client client,long accountNumber,double amount){
 
+      Account ac = client.getAnAccount(accountNumber);
 
-
-        double avb= client.getCard().getAccount().getAvaliableBalance();
+        double avb= ac.getAvaliableBalance();
 
         if((amount <= avb)) {
 
-            client.getCard().getAccount().setAvaliableBalance(avb - amount);
-            avb= client.getCard().getAccount().getAvaliableBalance();
+            ac.setAvaliableBalance(avb - amount);
+            avb= ac.getAvaliableBalance();
 
-            client.getCard().getAccount().setHistory(" MONEY OUT : R" +amount + " AND YOU NEW AVL BALANCE IS: R"+avb + " TIME :" + LocalDateTime.now() +"\n");
+           ac.setHistory(ac.getHistory().append("\n" + " MONEY OUT : R" +amount + " AND YOU NEW AVAILABLE BALANCE IS: R"+avb + " TIME :" + LocalDateTime.now() +"\n"));
 
-            System.out.println(client.getCard().getAccount().getHistory());
+            System.out.println("ATM WITHDRAWAL OF : R" + amount + " ON : " +  LocalDateTime.now() + " AND YOUR NEW AVAILABLE BALANCE IS:  R" + avb);
         }else {
 
             System.out.println("INSUFFICIENT AVAILABLE BALANCE");
@@ -189,10 +208,10 @@ public class AtmHelperApplication {
         if(amount <= bal1){
 
             client.getAnAccount(fromAccount).setAvaliableBalance(bal1-amount);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount + "TIME :" + LocalDateTime.now() +"\n");
+            client.getAnAccount(fromAccount).setHistory(client.getAnAccount(fromAccount).getHistory().append("\n" + "MONEY OF AMOUNT : R"+amount +   " TRANSFER TO : " + toAccount + "TIME :" + LocalDateTime.now() +"\n"));
             bal2 += amount;
             client.getAnAccount(toAccount).setAvaliableBalance(bal2);
-            client.getAnAccount(fromAccount).setHistory("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 + " TIME " + LocalDateTime.now() +"\n");
+            client.getAnAccount(fromAccount).setHistory(client.getAnAccount(toAccount).getHistory().append("\n" + "MONEY TRANSFER IN: R"+amount +   " AND YOUR NEW BALANCE IS R : " +bal2 + " TIME " + LocalDateTime.now() +"\n"));
 
             System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + toAccount + " IS : " +  "R"+ client.getAnAccount(toAccount).getAvaliableBalance());
             System.out.println("YOUR NEW AVAILABLE BALANCE FOR ACCNUMBER " + fromAccount + " IS : " +  "R"+ client.getAnAccount(fromAccount).getAvaliableBalance());
@@ -202,7 +221,7 @@ public class AtmHelperApplication {
     }
 
     //get statement
-    public String  getAccountStatement(Client client, long accountNum ){
+    public StringBuilder  getAccountStatement(Client client, long accountNum ){
 
         return client.getAnAccount(accountNum).getHistory();
     }
@@ -221,7 +240,7 @@ public class AtmHelperApplication {
 
             client.getCard().setCardPin(newPin);
             System.out.println("YOUR CARD PIN HAS BEEN SUCCESSFULLY CHANGED");
-            client.getAnAccount(client.getCard().getCardNumber()).setHistory(" YOU CHANGED YOUR CARD PIN " + "TIME: " + LocalDateTime.now() +"\n");
+            client.getCard().getAccount().setHistory(client.getCard().getAccount().getHistory().append(" YOU CHANGED YOUR CARD PIN " + "TIME: " + LocalDateTime.now() +"\n"));
         } catch (NullPointerException e){
             System.out.println("UNABLE TO GET ACCOUNT HISTORY");
         }

@@ -3,12 +3,12 @@ package com.atm.entity;
 public class Account {
  private long accountNumber;
  private double avaliableBalance;
- private String history;
+ private StringBuilder history;
 
     public Account() {
     }
 
-    public Account(long accountNumber, double avaliableBalance, String history) {
+    public Account(long accountNumber, double avaliableBalance, StringBuilder history) {
         this.accountNumber = accountNumber;
         this.avaliableBalance = avaliableBalance;
         this.history = history;
@@ -30,11 +30,11 @@ public class Account {
         this.avaliableBalance = avaliableBalance;
     }
 
-    public String getHistory() {
+    public StringBuilder getHistory() {
         return history;
     }
 
-    public void setHistory(String history) {
+    public void setHistory(StringBuilder history) {
         this.history = history;
     }
 
