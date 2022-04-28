@@ -23,20 +23,7 @@ public class AtmHelperApplication {
     private List<Card>cards = new ArrayList();
 
     private StringBuilder acHistory = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory1 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory2 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory3= new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory4 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory5 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory6= new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory7 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory8 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory9 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory10 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory11 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory12 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory13 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
-    private StringBuilder acHistory14 = new StringBuilder("WELCOME TO YOUR NEW ACCOUNT \n");
+
 
 
 
@@ -44,29 +31,30 @@ public class AtmHelperApplication {
 
     public AtmHelperApplication() {
         Account ac = new Account(1234,2500.00,acHistory);
-        Account ac1 = new  Account(1235,500.00,acHistory1);
-        Account ac2 = new  Account(1236,250.00,acHistory2);
+        Account ac1 = new  Account(1235,500.00,acHistory);
+        Account ac2 = new  Account(1236,250.00,acHistory);
 
 
-        Account ac3 = new  Account(1237,25000.00,acHistory3);
-        Account ac4 = new  Account(1238,2500.60,acHistory4);
-        Account ac5 = new  Account(1239,250000.00,acHistory5);
+        Account ac3 = new  Account(1237,25000.00,acHistory);
+        Account ac4 = new  Account(1238,2500.60,acHistory);
+        Account ac5 = new  Account(1239,250000.00,acHistory);
 
         accounts.add(ac1);
         accounts.add(ac2);
         accounts.add(ac3);
         accounts.add(ac4);
         accounts.add(ac5);
+        accounts.add(ac);
 
         //client 2
 
-        Account ac6 = new  Account(1137,25000.00,acHistory6);
-        Account ac7 = new  Account(1138,2500.60,acHistory7);
-        Account ac8 = new  Account(1139,250000.00,acHistory8);
+        Account ac6 = new  Account(1137,25000.00,acHistory);
+        Account ac7 = new  Account(1138,2500.60,acHistory);
+        Account ac8 = new  Account(1139,250000.00,acHistory);
 
-        Account ac9 = new  Account(1337,25000.00,acHistory9);
-        Account ac10 = new  Account(1338,2500.60,acHistory10);
-        Account ac11= new  Account(1339,250000.00,acHistory11);
+        Account ac9 = new  Account(1337,25000.00,acHistory);
+        Account ac10 = new  Account(1338,2500.60,acHistory);
+        Account ac11= new  Account(1339,250000.00,acHistory);
 
         accounts1.add(ac6);
         accounts1.add(ac7);
@@ -77,9 +65,9 @@ public class AtmHelperApplication {
 
         //client 3
 
-        Account ac12 = new  Account(1437,25000.00,acHistory12);
-        Account ac13 = new  Account(1438,2500.60,acHistory13);
-        Account ac14 = new  Account(1439,250000.00,acHistory14);
+        Account ac12 = new  Account(1437,25000.00,acHistory);
+        Account ac13 = new  Account(1438,2500.60,acHistory);
+        Account ac14 = new  Account(1439,250000.00,acHistory);
 
         accounts2.add(ac12);
         accounts2.add(ac13);
