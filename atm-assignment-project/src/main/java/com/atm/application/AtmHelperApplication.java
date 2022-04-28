@@ -103,6 +103,7 @@ public class AtmHelperApplication {
 
 
         Client theClient =null;
+
         try {
         for (Card card : cards) {
             if (card.getCardNumber() == cardNumber) {

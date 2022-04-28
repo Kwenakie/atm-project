@@ -26,13 +26,7 @@ public class AtmHelperApplicationTest extends TestCase {
 
     }
 
-    @Test
-    @DisplayName("TEST GET CLIENT GIVEN THE CARD NUMBER  FUNCTIONALITY")
-    public void testGetClientGivenCardNumber() {
 
-        Client client = atm.getClientGivenCardNumber(1234);
-        assertNotNull(client);
-    }
 
     @Test
     @DisplayName("TEST ACCOUNT DEPOSIT  FUNCTIONALITY")
